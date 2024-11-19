@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./tailwindcss.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <style>
+        .bg-custom {
+            background-color: rgb(24 16 66);
+        }
+
+        .header-bg {
+            background-color: rgb(44 46 47);
+        }
+
+        .display-ruby {
+            display: ruby;
+        }
+
+        .slide-in {
+            left: -400px;
+            transition: left 0.5s ease-in-out;
+        }
+
+        .slide-in-active {
+            left: 0;
+        }
+
+        .in_tab_active {
+            border-top: solid 1px rgb(140, 138, 167);
+        }
+
+        .loader {
+            border-radius: 50%;
+            border: 8px solid transparent;
+            border-top: 8px solid #ffffff;
+            /* Spinner color */
+            width: 64px;
+            /* Spinner size */
+            height: 64px;
+            /* Spinner size */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div id="in_modal_show"
+        class="fixed top-[50%] left-0 bg-gray-800 rounded-md font-bold text-gray-300 z-[40] cursor-pointer shadow-md hover:bg-orange-600">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 48 48">
+            <path fill="#0078d4"
+                d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z">
+            </path>
+            <path
+                d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z"
+                opacity=".05"></path>
+            <path
+                d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z"
+                opacity=".07"></path>
+            <path fill="#fff"
+                d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z">
+            </path>
+        </svg>
+    </div>
+    
+    <div id="in_main" class="fixed top-0 h-screen z-[45] w-[400px] overflow-y-scroll bg-custom slide-in">
+        <div class="header-bg flex justify-between items-center px-4 py-3">
+            <div class="text-gray-300 text-md uppercase">Company Name</div>
+            <div id="in_modal_close" class="cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
+                    <path
+                        d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z">
+                    </path>
+                </svg>
+            </div>
+        </div>
+
+        <div class="px-4 py-2 mt-10">
+            <div class="flex gap-4 items-center">
+                <div>
+                    <img src="https://randomuser.me/api/portraits/men/98.jpg" width="56" class="rounded-full" />
+                </div>
+                <span class="text-gray-200 text-3xl">Zack Brownn</span>
+            </div>
+
+            <div class="text-gray-300 my-2 text-sm">
+                <p>New York City Metropolitan - 18 years total experience Rutgers, the State University of New Jersey
+                </p>
+            </div>
+
+            <div class="uppercase my-4 py-1 border border-gray-400 rounded-md w-full text-center hover:bg-orange-600">
+                <div class="text-gray-300 text-sm cursor-pointer">
+                    <i class="fa fa-thin fa-envelope mr-2"></i>
+                    email zack
+                </div>
+            </div>
+
+            <div class="flex gap-2 justify-between items-center my-2">
+                <div>
+                    <div class="text-gray-200 uppercase text-md font-semibold">
+                        more likely to move
+                    </div>
+                    <div class="w-full bg-blue-900 max-w-sm mx-auto rounded-lg overflow-hidden border border-gray-300">
+                        <div class="bg-green-500 text-xs leading-none py-1" style="width: 40%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-gray-200 uppercase text-md font-semibold">
+                        company match
+                    </div>
+                    <div class="w-full bg-blue-900 max-w-sm mx-auto rounded-lg overflow-hidden border border-gray-300">
+                        <div class="bg-green-500 text-xs leading-none py-1" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-2">
+                <div class="uppercase text-gray-200 text-md font-semibold my-2">
+                    highlights
+                </div>
+                <div class="flex items-center gap-2">
+                    <img src="https://randomuser.me/api/portraits/men/90.jpg" width="24" class="rounded-full" />
+                    <img src="https://randomuser.me/api/portraits/men/91.jpg" width="24" class="rounded-full" />
+                </div>
+            </div>
+
+            <div class="my-2">
+                <div class="uppercase text-gray-200 text-md font-semibold my-2">
+                    skills
+                </div>
+                <div class="display-ruby text-gray-300 text-xs">
+                    <div class="bg-gray-500	 mb-2 rounded-xl py-1 px-2">
+                        marketing automation
+                    </div>
+                    <div class="bg-gray-500	 mb-2 text-gray-300 rounded-xl py-1 px-2 text-xs">
+                        marketing
+                    </div>
+                    <div class="bg-gray-500	 mb-2 text-gray-300 rounded-xl py-1 px-2 text-xs">
+                        brand management
+                    </div>
+                    <div class="bg-gray-500	 mb-2 text-gray-300 rounded-xl py-1 px-2 text-xs">
+                        project management
+                    </div>
+                    <div class="bg-gray-500	 mb-2 text-gray-300 rounded-xl py-1 px-2 text-xs">
+                        marketing communications
+                    </div>
+                    <div class="bg-gray-500	 mb-2 text-gray-300 rounded-xl py-1 px-2 text-xs">
+                        css
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-3">
+                <div class="uppercase text-gray-200 text-md font-semibold">
+                    links
+                </div>
+                <div class="text-gray-300 text-sm">
+                    <div>
+                        <p>Websites</p>
+                        <a href="/asdlfksdf">link1</a>
+                        <a href="/asdlfksdf">link2</a>
+                    </div>
+                    <div>
+                        <p>Profile</p>
+                        <a href="/asdlfksdf">link1</a>
+                        <a href="/asdlfksdf">link2</a>
+                    </div>
+                    <!-- <span>Twitter</span> - <span>Github</span> - <span>Facebook</span> -->
+                </div>
+            </div>
+
+            <div class="my-3">
+                <div class="uppercase text-gray-200 text-md font-semibold">
+                    work experience
+                </div>
+                <div class="experiences">
+                    <div class="text-gray-300 text-sm mb-1">
+                        <p>Product Designer at NBC Universal</p>
+                        <p>2013 - 2015 (2 years)</p>
+                    </div>
+                    <div class="text-gray-300 text-sm mb-1">
+                        <p>Product Designer at NBC Universal</p>
+                        <p>2013 - 2015 (2 years)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-3">
+                <div class="uppercase text-gray-200 text-md font-semibold">
+                    education
+                </div>
+                <div class="educations">
+                    <div class="text-gray-300 text-sm my-1">
+                        <p>BFA Graphic Design at University of North Texas</p>
+                        <p>Bachelr's Degree -2008</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="w-full grid grid-cols-3" id="in_tabs">
+                <div class="in_tab px-4 py-2 text-center text-md font-bold text-gray-300 border-t border-gray-700 hover:border-gray-300 cursor-pointer in_tab_active"
+                    id="in_tab_1">Groups</div>
+                <div class="in_tab px-4 py-2 text-center text-md font-bold text-gray-300 border-t border-gray-700 hover:border-gray-300 cursor-pointer"
+                    id="in_tab_2">Universities</div>
+                <div class="in_tab px-4 py-2 text-center text-md font-bold text-gray-300 border-t border-gray-700 hover:border-gray-300 cursor-pointer"
+                    id="in_tab_3">Companies</div>
+            </div>
+            <div class="bg-gray-500" id="in_tab_body">
+                <div class="text-gray-300 text-sm my-1">
+                    <p>BFA Graphic Design at University of North Texas</p>
+                    <p>Bachelr's Degree -2008</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-spinner"
+        class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50 hidden">
+        <div class="loader"></div>
+    </div>
+
+
+    <script>
+        document.getElementById('in_modal_show').addEventListener('click', () => {
+            document.getElementById('in_main').classList.add('slide-in-active');
+        });
+
+        document.getElementById('in_modal_close').addEventListener('click', () => {
+            document.getElementById('in_main').classList.remove('slide-in-active');
+        });
+
+        $('.in_tab').on('click', function () {
+            let id = $(this)[0].id;
+            setTabBody(id);
+        });
+
+        function setTabBody(id) {
+            let tabChilds = $('#in_tabs').children();
+            for (let i = 0; i < tabChilds.length; i++) {
+                const child = tabChilds[i];
+                $(child).removeClass('in_tab_active');
+            }
+            $('#' + id).addClass('in_tab_active');
+            $('#in_tab_body').html(id)
+        }
+
+        function showSpinner() {
+            document.getElementById('loading-spinner').classList.remove('hidden');
+        }
+
+        function hideSpinner() {
+            document.getElementById('loading-spinner').classList.add('hidden');
+        }
+
+        // showSpinner();
+        setTimeout(() => {
+            hideSpinner();
+        }, 3000);
+    </script>
+</body>
+
+</html>

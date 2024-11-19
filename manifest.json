@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "LinkedIn",
+    "description": "LinkedIn Extension",
+    "version": "1.0",
+    "permissions": [
+        "activeTab",
+        "background",
+        "scripting",
+        "*://www.linkedin.com/in/*/"
+    ],
+    "background": {
+        "scripts": [
+            "assets/js/background.js"
+        ]
+    },
+    "icons": {
+        "128": "assets/img/bot-icon.png"
+    },
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "assets/js/jquery.min.js",
+                "assets/js/content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "content.html",
+                "test.html",
+                "tailwindcss.js"
+
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
